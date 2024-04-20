@@ -108,13 +108,36 @@ class UserDetailAPIView(generics.RetrieveUpdateAPIView):
 
 @api_view(['GET'])
 def api_root(request, format=None):
-    return Response({
+    # Intenta obtener el primer objeto Citas, si existe
+    try:
+        primera_cita = Citas.objects.first()
+        pk_cita = primera_cita.pk if primera_cita else None
+    except Citas.DoesNotExist:
+        pk_cita = None
+    
+    # Intenta obtener el pk del primer usuario
+    try:
+        primer_usuario = User.objects.first()
+        user_pk = primer_usuario.pk if primer_usuario else None
+    except User.DoesNotExist:
+        user_pk = None
+
+    # Genera la respuesta con los enlaces de la API
+    response_dict = {
         'register': reverse('register', request=request, format=format),
         'login': reverse('login', request=request, format=format),
         'logout': reverse('logout', request=request, format=format),
         'citas': reverse('citas', request=request, format=format),
-        # 'citas-detalle': reverse('citas-detalle', request=request, format=format),
         'user-list': reverse('user-list', request=request, format=format),
-        # 'user-detail-list': reverse('user-detail-list', request=request, format=format),
         'user-detail': reverse('user-detail', request=request, format=format),
-    })
+    }
+
+    # Solo agrega el enlace para citas-detalle si existe un pk de cita
+    if pk_cita:
+        response_dict['citas-detalle'] = reverse('citas-detalle', kwargs={'pk': pk_cita}, request=request, format=format)
+
+    # Solo agrega el enlace para user-detail-list si existe un pk de usuario
+    if user_pk:
+        response_dict['user-detail-list'] = reverse('user-detail-list', kwargs={'pk': user_pk}, request=request, format=format)
+
+    return Response(response_dict)
