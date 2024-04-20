@@ -68,6 +68,7 @@ CORS_ALLOWED_HEADERS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    'https://connectsalud.netlify.app',
     "http://localhost:4200",
 ]
 
