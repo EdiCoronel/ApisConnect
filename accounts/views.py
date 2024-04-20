@@ -90,6 +90,9 @@ class ListUser(APIView):
 
 from rest_framework import generics, permissions
 from .serializers import UserSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 
 class UserDetailAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
@@ -101,3 +104,17 @@ class UserDetailAPIView(generics.RetrieveUpdateAPIView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(pk=self.request.user.pk)
+    
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'register': reverse('register', request=request, format=format),
+        'login': reverse('login', request=request, format=format),
+        'logout': reverse('logout', request=request, format=format),
+        'citas': reverse('citas', request=request, format=format),
+        # 'citas-detalle': reverse('citas-detalle', request=request, format=format),
+        'user-list': reverse('user-list', request=request, format=format),
+        # 'user-detail-list': reverse('user-detail-list', request=request, format=format),
+        'user-detail': reverse('user-detail', request=request, format=format),
+    })
