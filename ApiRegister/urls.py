@@ -21,5 +21,6 @@ from django_mercadopago_payments.views import CreatePaymentAPIView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
+    path('api/login/', include('rest_framework.urls')),
     path("createpayment/", CreatePaymentAPIView.as_view(), name="create_payment"),
 ]
