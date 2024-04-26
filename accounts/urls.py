@@ -1,7 +1,6 @@
 from .views import ListUser, RegisterAPI, LoginAPI, UserDetailAPIView, CitasViewSet, api_root
 from knox import views as knox_views
 from django.urls import path
-from django_mercadopago_payments.views import CreatePaymentAPIView
 
 urlpatterns = [
     path('', api_root),
@@ -13,5 +12,4 @@ urlpatterns = [
     path('api/listusers/', ListUser.as_view(), name='user-list'),
     path('api/listusers/<int:pk>/', ListUser.as_view(), name='user-detail-list'),
     path('api/user/', UserDetailAPIView.as_view(), name='user-detail'),
-    path("createpayment/", CreatePaymentAPIView.as_view(), name="create_payment"),
 ]
