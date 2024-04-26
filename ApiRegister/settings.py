@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'accounts',
     'corsheaders',
     'django_rest_passwordreset',
+    "django_mercadopago_payments",
 
 ]
 
