@@ -6,6 +6,14 @@ from datetime import datetime
 # Api Citas
 
 class Citas(models.Model):
+    SERVICIOS_CHOICES = [
+        ('CG', 'Consulta General'),
+        ('OD', 'Odontología'),
+        ('PD', 'Pediatría'),
+        ('CR', 'Cardiología'),
+    ]
+
+
     id_paciente = models.AutoField(primary_key=True)
     dni = models.CharField(max_length=8, null=False, default='DEFAULT_VALUE')
     nombre = models.CharField(max_length=50)
@@ -15,6 +23,7 @@ class Citas(models.Model):
     fecha = models.DateField()
     hora = models.TimeField(null=False, default=datetime.now().time())
     mensaje = models.CharField(max_length=50)
+    servicio = models.CharField(max_length=2, choices=SERVICIOS_CHOICES, default='CG')
     fecha_registro = models.DateField(auto_now=True)
 
 class Meta:

@@ -30,7 +30,7 @@ from accounts.models import Citas
 class CitasSerializer(serializers.ModelSerializer):
     class Meta:
         model = Citas
-        fields = ['id_paciente','dni', 'nombre', 'apellido', 'telefono', 'correo', 'fecha', 'hora', 'mensaje', 'fecha_registro']
+        fields = ['id_paciente','dni', 'nombre', 'apellido', 'telefono', 'correo', 'fecha', 'hora', 'mensaje', 'servicio', 'fecha_registro']
 
 # Lista de Usuarios 
 
